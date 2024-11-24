@@ -1,0 +1,160 @@
+﻿@model Bulky.Models.ViewModels.ProductVM //always we have to start with model
+
+<div class="card shadow border-0 my-4">
+    <div class="card-header bg-secondary  bg-gradient ml-0 py-3">
+
+        <div class="row">
+            <div class="col-12 text-center">
+                <h2 class="text-white py-2">@(Model.Product.Id!=0?"Update":"Create")Product</h2>
+            </div>
+        </div>
+    </div>
+    <div class="card-body p-4">
+
+        <form method="post" class="row" enctype="multipart/form-data">
+            <input asp-for="Product.Id" hidden/>
+            <input asp-for="Product.ImageUrl" hidden />
+            <div class="row">
+                <div class="col-10">
+                    <div class="border p-3 mt-4">
+                        <!-- padding 3 margin top 4-->
+
+                        <div asp-validation-summary="All"></div>
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.Title" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Title" class="ms-2"> </label>
+                            <span asp-validation-for="Product.Title" class="text-danger"></span>
+                        </div>
+                        <div class="py-2 col-12">
+                            <!--margin bottom 3-->
+                            <label asp-for="Product.Description" class="ms-2 text-muted"> </label>
+                            <textarea asp-for="Product.Description" type="text" class="form-control border-0 shadow"></textarea>
+
+
+                        </div>
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.ISBN" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.ISBN" class="ms-2"> </label>
+                            <span asp-validation-for="Product.ISBN" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.Author" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Author" class="ms-2"> </label>
+                            <span asp-validation-for="Product.Author" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.ListPrice" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.ListPrice" class="ms-2"> </label>
+                            <span asp-validation-for="Product.ListPrice" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.Price" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Price" class="ms-2"> </label>
+                            <span asp-validation-for="Product.Price" class="text-danger"></span>
+                        </div>
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.Price50" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Price50" class="ms-2"> </label>
+                            <span asp-validation-for="Product.Price50" class="text-danger"></span>
+                        </div>
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input asp-for="Product.Price100" type="text" class="form-control border-0 shadow" />
+                            <label asp-for="Product.Price100" class="ms-2"> </label>
+                            <span asp-validation-for="Product.Price100" class="text-danger"></span>
+                        </div>
+
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <Select asp-for="Product.CategoryId" asp-items="@Model.CategoryList" type="text" class="form-select border-0 shadow">
+                                <option disabled selected>--Select Category--</option>
+                            </Select>
+                            <label asp-for="Product.CategoryId" class="ms-2"> </label>
+                            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+                        </div>
+
+
+
+
+                        <div class="form-floating py-2 col-12">
+                            <!--margin bottom 3-->
+                            <input type="file" name="file" class="form-control border-0 shadow" />
+                            <label asp-for="Product.ImageUrl" class="ms-2"> </label>
+
+                        </div>
+
+
+
+                        <div class="row p-2">
+                            <div class="col-6 col-md-3">
+                                @if (Model.Product.Id != 0)
+                                {
+                                    <!-- boostrap class having 12 cols / into 6-6 cols-->
+                                    <button type="submit" class="btn btn-primary form-control ">Update</button>  <!-- add form-control class to give it full width -->
+                                }
+                                else
+                                {
+                                    <!-- boostrap class having 12 cols / into 6-6 cols-->
+                                    <button type="submit" class="btn btn-primary form-control ">Create</button>  <!-- add form-control class to give it full width -->
+                                }
+
+
+                            </div>
+                            <div class="col-6 col-md-3">
+                                <a asp-controller="Product" asp-action="Index" class="btn btn-outline-primary border">Back to List</a> <!-- btn-outline-secondary  rather thn secondary & add little bit of border too-->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-2">
+                    <img src="@Model.Product.ImageUrl" width="100%" style="border-radius:5px; border:1px solid #bbb9b9"/>
+                </div>
+            </div>
+
+          
+        </form>
+    </div>
+</div>
+
+
+        @section Scripts{
+            @{
+    <partial name="_ValidationScriptsPartial"/>
+
+        <script>
+            tinymce.init({
+                selector: 'textarea',
+                plugins: 'ai tinycomments mentions anchor autolink charmap codesample emoticons  lists table visualblocks wordcount checklist mediaembed casechange export formatpainter pageembed permanentpen footnotes advtemplate advtable advcode editimage tableofcontents mergetags powerpaste tinymcespellchecker autocorrect a11ychecker typography inlinecss',
+                toolbar: 'undo redo | blocks fontfamily fontsize | bold italic underline strikethrough |  table mergetags | align lineheight | tinycomments | checklist numlist bullist indent outdent ',
+                tinycomments_mode: 'embedded',
+                
+                ai_request: (request, respondWith) => respondWith.string(() => Promise.reject("See docs to implement AI Assistant"))
+            });
+        </script>
+               
+            }
+        }
